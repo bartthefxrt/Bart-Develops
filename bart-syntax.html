@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bart++ Syntax | Bart Develops</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#07050f;--card:#110e24;--card2:#0f0c20;--border:rgba(120,100,255,0.14);--border2:rgba(140,100,255,0.3);
+  --accent:#7c5cfc;--accent2:#a78bfa;--text:#f0ecff;--muted:#7a6fa0;--muted2:#a099c8;
+  --grad:linear-gradient(135deg,#60a5fa 0%,#a78bfa 45%,#f472b6 100%);--max:900px;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;z-index:0;background:
+  radial-gradient(ellipse 55% 45% at 15% 25%,rgba(59,130,246,0.15) 0%,transparent 60%),
+  radial-gradient(ellipse 50% 50% at 85% 15%,rgba(168,85,247,0.14) 0%,transparent 60%),
+  radial-gradient(ellipse 60% 40% at 50% 90%,rgba(236,72,153,0.10) 0%,transparent 60%);
+  pointer-events:none;}
+body>*{position:relative;z-index:1;}
+
+nav{position:sticky;top:0;z-index:100;background:rgba(7,5,15,0.88);backdrop-filter:blur(20px);border-bottom:0.5px solid var(--border);}
+.nav-inner{max-width:1100px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:58px;}
+.nav-logo{display:flex;align-items:center;gap:7px;text-decoration:none;font-weight:800;font-size:0.9rem;letter-spacing:0.05em;}
+.nav-logo-bracket{color:var(--accent2);}
+.nav-logo-name{color:var(--text);}
+.nav-logo-name span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.nav-back{display:inline-flex;align-items:center;gap:6px;color:var(--muted2);text-decoration:none;font-size:0.8rem;font-weight:500;border:1px solid var(--border);padding:0.35rem 0.9rem;border-radius:6px;transition:border-color 0.2s,color 0.2s;}
+.nav-back:hover{color:var(--text);border-color:var(--border2);}
+
+.page-hero{max-width:var(--max);margin:0 auto;padding:3.5rem 2rem 2rem;text-align:center;}
+.page-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(96,165,250,0.1);border:1px solid rgba(96,165,250,0.25);color:#93c5fd;font-size:0.68rem;font-weight:700;letter-spacing:0.1em;padding:0.28rem 0.9rem;border-radius:20px;margin-bottom:1.2rem;text-transform:uppercase;}
+.page-hero h1{font-size:clamp(2.2rem,6vw,3.5rem);font-weight:900;letter-spacing:-0.03em;line-height:1.05;margin-bottom:0.75rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.page-hero p{font-size:0.92rem;color:var(--muted2);max-width:480px;margin:0 auto;}
+
+.divider-wrap{max-width:var(--max);margin:2rem auto 0;padding:0 2rem;}
+.divider-wrap hr{border:none;border-top:0.5px solid var(--border);}
+
+.content{max-width:var(--max);margin:0 auto;padding:2.5rem 2rem 5rem;}
+
+/* Quick examples row at top */
+.quick-examples{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:3rem;}
+.qex{background:var(--card);border:0.5px solid var(--border);border-radius:10px;padding:1rem 1.1rem;}
+.qex-label{font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent2);margin-bottom:0.6rem;}
+.qex pre{font-family:'Fira Code',monospace;font-size:0.72rem;color:#e2d9ff;line-height:1.7;white-space:pre-wrap;}
+
+/* Syntax sections */
+.syn-section{margin-bottom:2.75rem;}
+.syn-header{display:flex;align-items:center;gap:10px;margin-bottom:1rem;}
+.syn-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.95rem;flex-shrink:0;}
+.syn-title{font-size:1.05rem;font-weight:800;letter-spacing:-0.01em;}
+.syn-sub{font-size:0.82rem;color:var(--muted);margin-bottom:1rem;line-height:1.7;}
+
+.code-block{background:#0b0917;border:0.5px solid var(--border2);border-radius:10px;overflow:hidden;}
+.code-header{display:flex;align-items:center;justify-content:space-between;padding:0.6rem 1rem;border-bottom:0.5px solid var(--border);background:rgba(255,255,255,0.02);}
+.code-dots-sm{display:flex;gap:5px;}
+.code-dots-sm span{width:8px;height:8px;border-radius:50%;}
+.code-lang{font-size:0.62rem;font-weight:600;letter-spacing:0.08em;color:var(--muted);text-transform:uppercase;}
+.code-block pre{padding:1.1rem 1.25rem;font-family:'Fira Code',monospace;font-size:0.78rem;line-height:1.8;white-space:pre-wrap;color:#e2d9ff;}
+
+/* Syntax highlighting */
+.kw{color:#c084fc;}
+.fn{color:#60a5fa;}
+.str{color:#4ade80;}
+.num{color:#fb923c;}
+.cm{color:#4a4270;}
+.op{color:#f472b6;}
+.var{color:#e2d9ff;}
+.type{color:#fbbf24;}
+
+.back-row{display:flex;justify-content:space-between;align-items:center;margin-top:3rem;padding-top:2rem;border-top:0.5px solid var(--border);}
+.back-row a{font-size:0.8rem;font-weight:600;color:var(--accent2);text-decoration:none;display:inline-flex;align-items:center;gap:5px;border:1px solid var(--border2);padding:0.4rem 1rem;border-radius:7px;transition:background 0.2s;}
+.back-row a:hover{background:rgba(124,92,252,0.1);}
+
+footer{border-top:0.5px solid var(--border);padding:1.5rem 2rem;text-align:center;font-size:0.72rem;color:var(--muted);}
+footer a{color:var(--muted2);text-decoration:none;}footer a:hover{color:var(--text);}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="bart-develops.html">
+      <span class="nav-logo-bracket">&lt;/&gt;</span>
+      <span class="nav-logo-name">BART <span>DEVELOPS</span></span>
+    </a>
+    <a class="nav-back" href="bartplusplus.html">← Back to Bart++</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-badge">📄 Syntax Reference</div>
+  <h1>Bart++ Syntax</h1>
+  <p>A look at the core syntax and structure of the Bart++ programming language.</p>
+</div>
+
+<div class="divider-wrap"><hr></div>
+
+<div class="content">
+
+  <!-- Quick 3 examples -->
+  <div class="quick-examples">
+    <div class="qex">
+      <div class="qex-label">Hello World</div>
+      <pre><span class="fn">print</span>(<span class="str">"Hello World"</span>);</pre>
+    </div>
+    <div class="qex">
+      <div class="qex-label">Hotkey</div>
+      <pre><span class="kw">hotkey</span> <span class="type">F1</span> {
+  <span class="fn">Run</span>(<span class="str">"notepad"</span>);
+}</pre>
+    </div>
+    <div class="qex">
+      <div class="qex-label">Web Route</div>
+      <pre><span class="kw">route</span> <span class="str">"/"</span> {
+  <span class="fn">H1</span>(<span class="str">"Welcome"</span>);
+}</pre>
+    </div>
+  </div>
+
+  <!-- Variables -->
+  <div class="syn-section">
+    <div class="syn-header">
+      <div class="syn-icon" style="background:rgba(96,165,250,0.12);">📦</div>
+      <div>
+        <div class="syn-title">Variables</div>
+      </div>
+    </div>
+    <p class="syn-sub">Variables store data like text, numbers, lists, and objects. Use <code style="color:var(--accent2);font-family:'Fira Code',monospace;font-size:0.8rem;">let</code> for standard, <code style="color:var(--accent2);font-family:'Fira Code',monospace;font-size:0.8rem;">mut</code> for mutable, and <code style="color:var(--accent2);font-family:'Fira Code',monospace;font-size:0.8rem;">const</code> for constants.</p>
+    <div class="code-block">
+      <div class="code-header">
+        <div class="code-dots-sm"><span style="background:#ff5f57"></span><span style="background:#febc2e"></span><span style="background:#28c840"></span></div>
+        <span class="code-lang">Bart++</span>
+      </div>
+      <pre><span class="kw">let</span> <span class="var">name</span> <span class="op">=</span> <span class="str">"Bartek"</span>;
+<span class="kw">mut</span> <span class="var">score</span> <span class="op">=</span> <span class="num">100</span>;
+<span class="kw">const</span> <span class="var">version</span> <span class="op">=</span> <span class="str">"0.1"</span>;</pre>
+    </div>
+  </div>
+
+  <!-- Functions -->
+  <div class="syn-section">
+    <div class="syn-header">
+      <div class="syn-icon" style="background:rgba(168,85,247,0.12);">⚡</div>
+      <div>
+        <div class="syn-title">Functions</div>
+      </div>
+    </div>
+    <p class="syn-sub">Functions organize reusable blocks of code. Define them with the <code style="color:var(--accent2);font-family:'Fira Code',monospace;font-size:0.8rem;">func</code> keyword.</p>
+    <div class="code-block">
+      <div class="code-header">
+        <div class="code-dots-sm"><span style="background:#ff5f57"></span><span style="background:#febc2e"></span><span style="background:#28c840"></span></div>
+        <span class="code-lang">Bart++</span>
+      </div>
+      <pre><span class="kw">func</span> <span class="fn">hello</span>() {
+    <span class="fn">print</span>(<span class="str">"Hello World"</span>);
+}</pre>
+    </div>
+  </div>
+
+  <!-- Hotkeys -->
+  <div class="syn-section">
+    <div class="syn-header">
+      <div class="syn-icon" style="background:rgba(251,191,36,0.12);">⌨️</div>
+      <div>
+        <div class="syn-title">Hotkeys</div>
+      </div>
+    </div>
+    <p class="syn-sub">Hotkeys allow automation using keyboard shortcuts — bind any key to a block of code.</p>
+    <div class="code-block">
+      <div class="code-header">
+        <div class="code-dots-sm"><span style="background:#ff5f57"></span><span style="background:#febc2e"></span><span style="background:#28c840"></span></div>
+        <span class="code-lang">Bart++</span>
+      </div>
+      <pre><span class="kw">hotkey</span> <span class="type">F1</span> {
+    <span class="fn">Run</span>(<span class="str">"notepad"</span>);
+}</pre>
+    </div>
+  </div>
+
+  <!-- Web Syntax -->
+  <div class="syn-section">
+    <div class="syn-header">
+      <div class="syn-icon" style="background:rgba(74,222,128,0.12);">🌐</div>
+      <div>
+        <div class="syn-title">Web Syntax</div>
+      </div>
+    </div>
+    <p class="syn-sub">Bart++ includes built-in web and page systems — define routes and render HTML-style elements natively.</p>
+    <div class="code-block">
+      <div class="code-header">
+        <div class="code-dots-sm"><span style="background:#ff5f57"></span><span style="background:#febc2e"></span><span style="background:#28c840"></span></div>
+        <span class="code-lang">Bart++</span>
+      </div>
+      <pre><span class="kw">route</span> <span class="str">"/"</span> {
+    <span class="fn">H1</span>(<span class="str">"Welcome"</span>);
+}</pre>
+    </div>
+  </div>
+
+  <!-- Automation -->
+  <div class="syn-section">
+    <div class="syn-header">
+      <div class="syn-icon" style="background:rgba(244,114,182,0.12);">🤖</div>
+      <div>
+        <div class="syn-title">Automation Syntax</div>
+      </div>
+    </div>
+    <p class="syn-sub">Automation tools can control apps, typing, windows, and the mouse — all natively in Bart++.</p>
+    <div class="code-block">
+      <div class="code-header">
+        <div class="code-dots-sm"><span style="background:#ff5f57"></span><span style="background:#febc2e"></span><span style="background:#28c840"></span></div>
+        <span class="code-lang">Bart++</span>
+      </div>
+      <pre><span class="fn">Send</span>(<span class="str">"Hello"</span>);
+<span class="var">Mouse</span>.<span class="fn">click</span>();</pre>
+    </div>
+  </div>
+
+  <div class="back-row">
+    <a href="bartplusplus.html">← Back to Bart++</a>
+    <a href="bart-features.html">See Features →</a>
+  </div>
+</div>
+
+<footer>
+  <a href="bart-develops.html">&lt;/&gt; Bart Develops</a> &nbsp;·&nbsp; © 2026 Bartek Malysa. All rights reserved.
+</footer>
+</body>
+</html>

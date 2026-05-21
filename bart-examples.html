@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bart++ Try Examples | Bart Develops</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#07050f;--card:#110e24;--border:rgba(120,100,255,0.14);--border2:rgba(140,100,255,0.3);--accent:#7c5cfc;--accent2:#a78bfa;--text:#f0ecff;--muted:#7a6fa0;--muted2:#a099c8;--grad:linear-gradient(135deg,#60a5fa 0%,#a78bfa 45%,#f472b6 100%);}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;display:flex;flex-direction:column;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 55% 45% at 15% 25%,rgba(59,130,246,0.15) 0%,transparent 60%),radial-gradient(ellipse 50% 50% at 85% 15%,rgba(168,85,247,0.14) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 50% 90%,rgba(236,72,153,0.10) 0%,transparent 60%);pointer-events:none;}
+body>*{position:relative;z-index:1;}
+nav{position:sticky;top:0;z-index:100;background:rgba(7,5,15,0.88);backdrop-filter:blur(20px);border-bottom:0.5px solid var(--border);}
+.nav-inner{max-width:1100px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:58px;}
+.nav-logo{display:flex;align-items:center;gap:7px;text-decoration:none;font-weight:800;font-size:0.9rem;letter-spacing:0.05em;}
+.nav-logo-bracket{color:var(--accent2);}
+.nav-logo-name{color:var(--text);}
+.nav-logo-name span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.nav-back{display:inline-flex;align-items:center;gap:6px;color:var(--muted2);text-decoration:none;font-size:0.8rem;font-weight:500;border:1px solid var(--border);padding:0.35rem 0.9rem;border-radius:6px;transition:border-color 0.2s,color 0.2s;}
+.nav-back:hover{color:var(--text);border-color:var(--border2);}
+.center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4rem 2rem;}
+.soon-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(124,92,252,0.1);border:1px solid rgba(124,92,252,0.25);color:var(--accent2);font-size:0.68rem;font-weight:700;letter-spacing:0.1em;padding:0.28rem 0.9rem;border-radius:20px;margin-bottom:1.5rem;text-transform:uppercase;}
+h1{font-size:clamp(2rem,5vw,3rem);font-weight:900;letter-spacing:-0.03em;margin-bottom:1rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+p{color:var(--muted2);font-size:0.9rem;max-width:380px;margin:0 auto 2rem;line-height:1.8;}
+a.back-btn{display:inline-flex;align-items:center;gap:6px;font-size:0.82rem;font-weight:600;color:var(--text);text-decoration:none;border:1px solid var(--border2);padding:0.55rem 1.25rem;border-radius:8px;transition:background 0.2s;}
+a.back-btn:hover{background:rgba(124,92,252,0.1);}
+footer{border-top:0.5px solid var(--border);padding:1.5rem 2rem;text-align:center;font-size:0.72rem;color:var(--muted);}
+footer a{color:var(--muted2);text-decoration:none;}footer a:hover{color:var(--text);}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="bart-develops.html"><span class="nav-logo-bracket">&lt;/&gt;</span><span class="nav-logo-name">BART <span>DEVELOPS</span></span></a>
+    <a class="nav-back" href="bartplusplus.html">← Back to Bart++</a>
+  </div>
+</nav>
+<div class="center">
+  <div class="soon-badge">💻 Examples</div>
+  <h1>Try Examples</h1>
+  <p>This page is being built. Check back soon — more content for Bart++ is on the way.</p>
+  <a class="back-btn" href="bartplusplus.html">← Back to Bart++</a>
+</div>
+<footer>
+  <a href="bart-develops.html">&lt;/&gt; Bart Develops</a> &nbsp;·&nbsp; © 2026 Bartek Malysa. All rights reserved.
+</footer>
+</body>
+</html>
