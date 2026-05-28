@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" href="favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bart++ Examples | Bart Develops</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#07050f;--card:#110e24;--border:rgba(120,100,255,0.14);--border2:rgba(140,100,255,0.3);
+  --accent:#7c5cfc;--accent2:#a78bfa;--text:#f0ecff;--muted:#7a6fa0;--muted2:#a099c8;
+  --grad:linear-gradient(135deg,#60a5fa 0%,#a78bfa 45%,#f472b6 100%);--max:1060px;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;z-index:0;background:
+  radial-gradient(ellipse 55% 45% at 15% 25%,rgba(59,130,246,0.15) 0%,transparent 60%),
+  radial-gradient(ellipse 50% 50% at 85% 15%,rgba(168,85,247,0.14) 0%,transparent 60%),
+  radial-gradient(ellipse 60% 40% at 50% 90%,rgba(236,72,153,0.10) 0%,transparent 60%),
+  radial-gradient(ellipse 40% 35% at 80% 60%,rgba(99,102,241,0.12) 0%,transparent 55%);
+  pointer-events:none;}
+body>*{position:relative;z-index:1;}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(7,5,15,0.88);backdrop-filter:blur(20px);border-bottom:0.5px solid var(--border);}
+.nav-inner{max-width:1100px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:58px;}
+.nav-logo{display:flex;align-items:center;gap:7px;text-decoration:none;font-weight:800;font-size:0.9rem;letter-spacing:0.05em;}
+.nav-logo-bracket{color:var(--accent2);}
+.nav-logo-name{color:var(--text);}
+.nav-logo-name span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.nav-back{display:inline-flex;align-items:center;gap:6px;color:var(--muted2);text-decoration:none;font-size:0.8rem;font-weight:500;border:1px solid var(--border);padding:0.35rem 0.9rem;border-radius:6px;transition:border-color 0.2s,color 0.2s;}
+.nav-back:hover{color:var(--text);border-color:var(--border2);}
+
+/* HERO */
+.page-hero{max-width:var(--max);margin:0 auto;padding:3.5rem 2rem 2rem;text-align:center;}
+.page-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(96,165,250,0.1);border:1px solid rgba(96,165,250,0.22);color:#93c5fd;font-size:0.68rem;font-weight:700;letter-spacing:0.1em;padding:0.28rem 0.9rem;border-radius:20px;margin-bottom:1.2rem;text-transform:uppercase;}
+.page-hero h1{font-size:clamp(2.2rem,6vw,3.6rem);font-weight:900;letter-spacing:-0.03em;line-height:1.05;margin-bottom:0.75rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.page-hero p{font-size:0.92rem;color:var(--muted2);max-width:480px;margin:0 auto;}
+
+.divider-wrap{max-width:var(--max);margin:2rem auto 0;padding:0 2rem;}
+.divider-wrap hr{border:none;border-top:0.5px solid var(--border);}
+
+/* CONTENT */
+.content{max-width:var(--max);margin:0 auto;padding:2.5rem 2rem 5rem;}
+
+/* EXAMPLE GRID */
+.examples-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem;}
+
+/* EXAMPLE CARD */
+.ex-card{background:var(--card);border:0.5px solid var(--border);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:border-color 0.2s,transform 0.2s;}
+.ex-card:hover{border-color:var(--border2);transform:translateY(-2px);}
+
+.ex-card-header{padding:1rem 1.25rem 0.75rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;}
+.ex-num{font-size:0.62rem;font-weight:700;letter-spacing:0.1em;color:var(--accent2);background:rgba(124,92,252,0.1);border:1px solid rgba(124,92,252,0.2);padding:0.18rem 0.55rem;border-radius:20px;}
+.ex-title{font-size:0.9rem;font-weight:800;color:var(--text);flex:1;}
+
+/* CODE BLOCK */
+.ex-code{background:#080614;border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border);}
+.ex-code-header{display:flex;align-items:center;justify-content:space-between;padding:0.5rem 1rem;border-bottom:0.5px solid rgba(120,100,255,0.08);}
+.code-dots-sm{display:flex;gap:5px;}
+.code-dots-sm span{width:7px;height:7px;border-radius:50%;}
+.code-lang-label{font-size:0.6rem;font-weight:600;letter-spacing:0.08em;color:var(--muted);text-transform:uppercase;}
+.ex-code pre{padding:1rem 1.25rem;font-family:'Fira Code',monospace;font-size:0.75rem;line-height:1.8;white-space:pre-wrap;color:#e2d9ff;}
+
+/* syntax colors */
+.kw{color:#c084fc;}
+.fn{color:#60a5fa;}
+.str{color:#4ade80;}
+.obj{color:#fb923c;}
+.cm{color:#4a4270;}
+
+/* DESCRIPTION */
+.ex-desc{padding:0.75rem 1.25rem;font-size:0.78rem;color:var(--muted2);line-height:1.7;flex:1;}
+
+/* BUTTONS ROW */
+.ex-btns{display:flex;gap:0.5rem;padding:0.85rem 1.25rem;border-top:0.5px solid var(--border);flex-wrap:wrap;}
+
+.btn-copy{display:inline-flex;align-items:center;gap:6px;font-size:0.72rem;font-weight:600;color:var(--text);background:transparent;border:1px solid var(--border2);padding:0.38rem 0.9rem;border-radius:6px;cursor:pointer;transition:background 0.2s,border-color 0.2s;font-family:'Inter',sans-serif;}
+.btn-copy:hover{background:rgba(124,92,252,0.1);}
+.btn-copy.copied{color:#4ade80;border-color:rgba(74,222,128,0.3);background:rgba(74,222,128,0.06);}
+
+.btn-explain{display:inline-flex;align-items:center;gap:6px;font-size:0.72rem;font-weight:600;color:var(--accent2);background:transparent;border:1px solid rgba(124,92,252,0.25);padding:0.38rem 0.9rem;border-radius:6px;cursor:pointer;transition:background 0.2s;font-family:'Inter',sans-serif;}
+.btn-explain:hover{background:rgba(124,92,252,0.1);}
+
+.btn-vscode{display:inline-flex;align-items:center;gap:6px;font-size:0.72rem;font-weight:600;color:var(--muted);background:transparent;border:1px solid var(--border);padding:0.38rem 0.9rem;border-radius:6px;cursor:not-allowed;font-family:'Inter',sans-serif;margin-left:auto;}
+.btn-vscode .soon-pill{font-size:0.58rem;font-weight:700;letter-spacing:0.06em;background:rgba(251,191,36,0.12);color:#fcd34d;border:1px solid rgba(251,191,36,0.22);padding:0.12rem 0.4rem;border-radius:10px;}
+
+/* POPUP MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(6px);z-index:200;display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;pointer-events:none;transition:opacity 0.2s;}
+.modal-overlay.open{opacity:1;pointer-events:all;}
+.modal{background:#110e24;border:1px solid var(--border2);border-radius:16px;padding:2rem;max-width:460px;width:100%;position:relative;transform:translateY(16px);transition:transform 0.25s;}
+.modal-overlay.open .modal{transform:translateY(0);}
+.modal-title{font-size:1rem;font-weight:800;margin-bottom:0.75rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.modal-body{font-size:0.85rem;color:var(--muted2);line-height:1.85;}
+.modal-close{position:absolute;top:1rem;right:1rem;background:transparent;border:1px solid var(--border);color:var(--muted2);width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:0.85rem;display:flex;align-items:center;justify-content:center;transition:border-color 0.2s,color 0.2s;font-family:'Inter',sans-serif;}
+.modal-close:hover{border-color:var(--border2);color:var(--text);}
+
+/* BOTTOM SECTION */
+.bottom-section{margin-top:3rem;padding:2rem;background:rgba(124,92,252,0.04);border:0.5px dashed rgba(124,92,252,0.2);border-radius:14px;text-align:center;}
+.bottom-section p{font-size:0.85rem;color:var(--muted2);line-height:1.8;}
+.bottom-section p strong{color:var(--accent2);}
+
+.back-row{display:flex;justify-content:space-between;align-items:center;margin-top:2.5rem;padding-top:2rem;border-top:0.5px solid var(--border);}
+.back-row a{font-size:0.8rem;font-weight:600;color:var(--accent2);text-decoration:none;display:inline-flex;align-items:center;gap:5px;border:1px solid var(--border2);padding:0.4rem 1rem;border-radius:7px;transition:background 0.2s;}
+.back-row a:hover{background:rgba(124,92,252,0.1);}
+
+footer{border-top:0.5px solid var(--border);padding:1.5rem 2rem;text-align:center;font-size:0.72rem;color:var(--muted);}
+footer a{color:var(--muted2);text-decoration:none;}footer a:hover{color:var(--text);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">
+      <img src="logo.png" alt="Bart Develops Logo" style="width:30px;height:30px;border-radius:6px;object-fit:cover;flex-shrink:0;">
+      <span class="nav-logo-name">BART <span>DEVELOPS</span></span>
+    </a>
+    <a class="nav-back" href="bartplusplus.html">← Back to Bart++</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-badge">💻 Examples</div>
+  <h1>Try Bart++ Examples!</h1>
+  <p>Explore beginner examples that show the power of Bart++.</p>
+</div>
+
+<div class="divider-wrap"><hr></div>
+
+<div class="content">
+  <div class="examples-grid">
+
+    <!-- 1. Hello World -->
+    <div class="ex-card">
+      <div class="ex-card-header">
+        <span class="ex-num">#01</span>
+        <span class="ex-title">Hello World</span>
+      </div>
+      <div class="ex-code">
+        <div class="ex-code-header">
+          <div class="code-dots-sm"><span style="background:#ff5f57"></span><span style="background:#febc2e"></span><span style="background:#28c840"></span></div>
+          <span class="code-lang-label">Bart++</span>
+        </div>
+        <pre><span class="fn">print</span>(<span class="str">"Hello World I am Bart!"</span>);</pre>
+      </div>
+      <p class="ex-desc">The first thing every Bart++ programmer should try.</p>
+      <div class="ex-btns">
+        <button class="btn-copy" onclick="copyCode(this, 'print(\"Hello World I am Bart!\");')">📋 Copy Code</button>
+        <button class="btn-explain" onclick="openModal('Hello World', 'Prints text to the screen. This is the simplest Bart++ program.')">💡 View Explanation</button>
+        <span class="btn-vscode">🖥 Try in VS Code <span class="soon-pill">COMING SOON</span></span>
+      </div>
+    </div>
+
+    <!-- 2. Auto Typing Macro -->
+    <div class="ex-card">
+      <div class="ex-card-header">
+        <span class="ex-num">#02</span>
+        <span class="ex-title">Auto Typing Macro</span>
+      </div>
+      <div class="ex-code">
+        <div class="ex-code-header">
+          <div class="code-dots-sm"><span style="background:#ff5f57"></span><span style="background:#febc2e"></span><span style="background:#28c840"></span></div>
+          <span class="code-lang-label">Bart++</span>
+        </div>
+        <pre><span class="kw">hotkey</span> F1 {
+    <span class="fn">Send</span>(<span class="str">"Hello from Bart++"</span>);
+}</pre>
+      </div>
+      <p class="ex-desc">A simple macro that types text when triggered.</p>
+      <div class="ex-btns">
+        <button class="btn-copy" onclick="copyCode(this, 'hotkey F1 {\n    Send(\"Hello from Bart++\");\n}')">📋 Copy Code</button>
+        <button class="btn-explain" onclick="openModal('Auto Typing Macro', 'Uses a hotkey to type text automatically with Send(). When you press F1, Bart++ will type the specified text wherever your cursor is.')">💡 View Explanation</button>
+        <span class="btn-vscode">🖥 Try in VS Code <span class="soon-pill">COMING SOON</span></span>
+      </div>
+    </div>
+
+    <!-- 3. App Launcher -->
+    <div class="ex-card">
+      <div class="ex-card-header">
+        <span class="ex-num">#03</span>
+        <span class="ex-title">App Launcher</span>
+      </div>
+      <div class="ex-code">
+        <div class="ex-code-header">
+          <div class="code-dots-sm"><span style="background:#ff5f57"></span><span style="background:#febc2e"></span><span style="background:#28c840"></span></div>
+          <span class="code-lang-label">Bart++</span>
+        </div>
+        <pre><span class="kw">hotkey</span> F2 {
+    <span class="fn">Run</span>(<span class="str">"notepad"</span>);
+}</pre>
+      </div>
+      <p class="ex-desc">Launch an app using a Bart++ hotkey.</p>
+      <div class="ex-btns">
+        <button class="btn-copy" onclick="copyCode(this, 'hotkey F2 {\n    Run(\"notepad\");\n}')">📋 Copy Code</button>
+        <button class="btn-explain" onclick="openModal('App Launcher', 'Uses Run() to open an app on your device like Notepad. You can replace \"notepad\" with any app name or file path to launch it instantly with a keypress.')">💡 View Explanation</button>
+        <span class="btn-vscode">🖥 Try in VS Code <span class="soon-pill">COMING SOON</span></span>
+      </div>
+    </div>
+
+    <!-- 4. Mouse Clicker -->
+    <div class="ex-card">
+      <div class="ex-card-header">
+        <span class="ex-num">#04</span>
+        <span class="ex-title">Mouse Clicker</span>
+      </div>
+      <div class="ex-code">
+        <div class="ex-code-header">
+          <div class="code-dots-sm"><span style="background:#ff5f57"></span><span style="background:#febc2e"></span><span style="background:#28c840"></span></div>
+          <span class="code-lang-label">Bart++</span>
+        </div>
+        <pre><span class="kw">hotkey</span> F3 {
+    <span class="obj">Mouse</span>.<span class="fn">move</span>(<span class="str">500</span>, <span class="str">300</span>);
+    <span class="obj">Mouse</span>.<span class="fn">click</span>();
+}</pre>
+      </div>
+      <p class="ex-desc">Move the mouse and click automatically.</p>
+      <div class="ex-btns">
+        <button class="btn-copy" onclick="copyCode(this, 'hotkey F3 {\n    Mouse.move(500, 300);\n    Mouse.click();\n}')">📋 Copy Code</button>
+        <button class="btn-explain" onclick="openModal('Mouse Clicker', 'Moves the mouse to a position (x: 500, y: 300) on the screen and clicks. You can change the numbers to target any position on your display.')">💡 View Explanation</button>
+        <span class="btn-vscode">🖥 Try in VS Code <span class="soon-pill">COMING SOON</span></span>
+      </div>
+    </div>
+
+    <!-- 5. Mini Web Page -->
+    <div class="ex-card">
+      <div class="ex-card-header">
+        <span class="ex-num">#05</span>
+        <span class="ex-title">Mini Web Page</span>
+      </div>
+      <div class="ex-code">
+        <div class="ex-code-header">
+          <div class="code-dots-sm"><span style="background:#ff5f57"></span><span style="background:#febc2e"></span><span style="background:#28c840"></span></div>
+          <span class="code-lang-label">Bart++</span>
+        </div>
+        <pre><span class="kw">route</span> <span class="str">"/"</span> {
+    <span class="obj">Page</span>.<span class="fn">create</span>(<span class="str">"Home"</span>);
+    <span class="fn">H1</span>(<span class="str">"Welcome to Bart++"</span>);
+    <span class="fn">P</span>(<span class="str">"A language in development."</span>);
+}</pre>
+      </div>
+      <p class="ex-desc">A web-style page example using Bart++ syntax.</p>
+      <div class="ex-btns">
+        <button class="btn-copy" onclick="copyCode(this, 'route \"/\" {\n    Page.create(\"Home\");\n    H1(\"Welcome to Bart++\");\n    P(\"A language in development.\");\n}')">📋 Copy Code</button>
+        <button class="btn-explain" onclick="openModal('Mini Web Page', 'Shows Bart++ web-style syntax with routes, pages, headings, and paragraphs. The route defines a URL path, and inside you can build pages using built-in HTML-style commands.')">💡 View Explanation</button>
+        <span class="btn-vscode">🖥 Try in VS Code <span class="soon-pill">COMING SOON</span></span>
+      </div>
+    </div>
+
+    <!-- 6. Simple Game Object -->
+    <div class="ex-card">
+      <div class="ex-card-header">
+        <span class="ex-num">#06</span>
+        <span class="ex-title">Simple Game Object</span>
+      </div>
+      <div class="ex-code">
+        <div class="ex-code-header">
+          <div class="code-dots-sm"><span style="background:#ff5f57"></span><span style="background:#febc2e"></span><span style="background:#28c840"></span></div>
+          <span class="code-lang-label">Bart++</span>
+        </div>
+        <pre><span class="kw">hotkey</span> F4 {
+    <span class="fn">sprite</span>(<span class="str">"player"</span>);
+    <span class="fn">move</span>(<span class="str">"player"</span>, <span class="str">10</span>, <span class="str">20</span>);
+}</pre>
+      </div>
+      <p class="ex-desc">Create and move a basic game object.</p>
+      <div class="ex-btns">
+        <button class="btn-copy" onclick="copyCode(this, 'hotkey F4 {\n    sprite(\"player\");\n    move(\"player\", 10, 20);\n}')">📋 Copy Code</button>
+        <button class="btn-explain" onclick="openModal('Simple Game Object', 'Creates a sprite called \"player\" and moves it 10 units on the X axis and 20 on the Y axis. This shows Bart++\'s built-in game object system for simple 2D game development.')">💡 View Explanation</button>
+        <span class="btn-vscode">🖥 Try in VS Code <span class="soon-pill">COMING SOON</span></span>
+      </div>
+    </div>
+
+    <!-- 7. AI Helper -->
+    <div class="ex-card">
+      <div class="ex-card-header">
+        <span class="ex-num">#07</span>
+        <span class="ex-title">AI Helper</span>
+      </div>
+      <div class="ex-code">
+        <div class="ex-code-header">
+          <div class="code-dots-sm"><span style="background:#ff5f57"></span><span style="background:#febc2e"></span><span style="background:#28c840"></span></div>
+          <span class="code-lang-label">Bart++</span>
+        </div>
+        <pre><span class="kw">hotkey</span> F5 {
+    <span class="fn">ai</span>(<span class="str">"Give me a project idea"</span>);
+}</pre>
+      </div>
+      <p class="ex-desc">A future AI-powered helper command.</p>
+      <div class="ex-btns">
+        <button class="btn-copy" onclick="copyCode(this, 'hotkey F5 {\n    ai(\"Give me a project idea\");\n}')">📋 Copy Code</button>
+        <button class="btn-explain" onclick="openModal('AI Helper', 'Shows the planned AI command system for generating ideas or helping users. The ai() command will connect to an AI model to respond to your prompts directly inside Bart++.')">💡 View Explanation</button>
+        <span class="btn-vscode">🖥 Try in VS Code <span class="soon-pill">COMING SOON</span></span>
+      </div>
+    </div>
+
+    <!-- 8. File Save Example -->
+    <div class="ex-card">
+      <div class="ex-card-header">
+        <span class="ex-num">#08</span>
+        <span class="ex-title">File Save Example</span>
+      </div>
+      <div class="ex-code">
+        <div class="ex-code-header">
+          <div class="code-dots-sm"><span style="background:#ff5f57"></span><span style="background:#febc2e"></span><span style="background:#28c840"></span></div>
+          <span class="code-lang-label">Bart++</span>
+        </div>
+        <pre><span class="kw">hotkey</span> F6 {
+    <span class="fn">writeFile</span>(<span class="str">"save.txt"</span>, <span class="str">"Saved from Bart++"</span>);
+    <span class="fn">print</span>(<span class="fn">readFile</span>(<span class="str">"save.txt"</span>));
+}</pre>
+      </div>
+      <p class="ex-desc">Write and read a text file with Bart++.</p>
+      <div class="ex-btns">
+        <button class="btn-copy" onclick="copyCode(this, 'hotkey F6 {\n    writeFile(\"save.txt\", \"Saved from Bart++\");\n    print(readFile(\"save.txt\"));\n}')">📋 Copy Code</button>
+        <button class="btn-explain" onclick="openModal('File Save Example', 'Writes text to a file called save.txt, then reads it back and prints it. This shows Bart++\'s built-in file reading and writing system — no imports needed.')">💡 View Explanation</button>
+        <span class="btn-vscode">🖥 Try in VS Code <span class="soon-pill">COMING SOON</span></span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom section -->
+  <div class="bottom-section">
+    <p>✨ <strong>More examples coming soon</strong> as Bart++ continues development.<br>
+    Follow on <a href="https://github.com/bartthefxrt" target="_blank" style="color:var(--accent2);text-decoration:none;font-weight:600;">GitHub</a> to stay updated.</p>
+  </div>
+
+  <div class="back-row">
+    <a href="bartplusplus.html">← Back to Bart++</a>
+    <a href="bart-syntax.html">View Syntax →</a>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-title" id="modal-title"></div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<footer>
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;"><img src="logo.png" style="width:18px;height:18px;border-radius:3px;object-fit:cover;"> Bart Develops</a> &nbsp;·&nbsp; © 2026 Bartek Malysa. All rights reserved.
+</footer>
+
+<script>
+function copyCode(btn, code) {
+  navigator.clipboard.writeText(code).then(() => {
+    btn.textContent = '✅ Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = '📋 Copy Code';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+function openModal(title, body) {
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-body').textContent = body;
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+}
+
+function closeModalOutside(e) {
+  if (e.target === document.getElementById('modal-overlay')) closeModal();
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>
